@@ -1,11 +1,20 @@
-// index.js
-const http = require('http');
+import express from 'express';
+import dotenv from 'dotenv';
 
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello World from Node.js');
-});
+import studentRoutes from './routes/studentRoutes.js';
+import contactUsRoutes from './routes/contactUsRoutes.js';
+import hireMeRoutes from './routes/hireMeRoutes.js';
 
-server.listen(3000, () => {
-    console.log('Server running at http://localhost:3000/');
+dotenv.config();
+
+const app = express();
+app.use(express.json());
+
+app.use('/api/students', studentRoutes);
+app.use('/api/contact-us', contactUsRoutes);
+app.use('/api/hire-me', hireMeRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });

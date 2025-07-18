@@ -1,21 +1,14 @@
 {
-  "name": "demonodeconnect",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "build": "echo no build",
+    "dev": "netlify dev"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "nodemon": "^3.1.10"
-  },
+  "type": "module",
   "dependencies": {
-    "pg": "^8.16.3"
+    "@prisma/client": "^5.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^15.0.0",
+    "prisma": "^5.0.0"
   }
 }

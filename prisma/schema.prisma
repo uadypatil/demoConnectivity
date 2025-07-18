@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or "mysql" or "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Student {
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String  @unique
+}
+
+
+model ContactUs {
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String 
+  contactNumber String
+  message String
+  createdAt  DateTime @default(now())
+}
+
+
+model HireMe {
+  id    Int     @id @default(autoincrement())
+  name  String
+  companyName String
+  email String 
+  contactNumber String
+  skillsNequired String
+  jobTitle String
+  jobDescription String
+  salaryExpectations String
+  message String
+  createdAt  DateTime @default(now())
+}
