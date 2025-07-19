@@ -3,6 +3,19 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function handler(event, context) {
+  // Handle preflight CORS (OPTIONS request)
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+      body: '',
+    };
+  }
+
   try {
     if (event.httpMethod === 'POST') {
       const data = JSON.parse(event.body);
@@ -10,7 +23,7 @@ export async function handler(event, context) {
       return {
         statusCode: 201,
         headers: {
-          'Access-Control-Allow-Origin': '*', // Allow all origins
+          'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
         },
         body: JSON.stringify(hire),
@@ -22,7 +35,7 @@ export async function handler(event, context) {
       return {
         statusCode: 200,
         headers: {
-          'Access-Control-Allow-Origin': '*', // Allow all origins
+          'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Headers': 'Content-Type',
         },
         body: JSON.stringify(hires),
@@ -32,7 +45,7 @@ export async function handler(event, context) {
     return {
       statusCode: 405,
       headers: {
-        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
       body: JSON.stringify({ error: 'Method not allowed' }),
@@ -41,7 +54,7 @@ export async function handler(event, context) {
     return {
       statusCode: 500,
       headers: {
-        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
       },
       body: JSON.stringify({ error: 'Internal Server Error', details: error.message }),
