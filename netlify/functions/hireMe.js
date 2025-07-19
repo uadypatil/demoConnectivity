@@ -9,6 +9,10 @@ export async function handler(event, context) {
       const hire = await prisma.hireMe.create({ data });
       return {
         statusCode: 201,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // Allow all origins
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
         body: JSON.stringify(hire),
       };
     }
@@ -17,17 +21,29 @@ export async function handler(event, context) {
       const hires = await prisma.hireMe.findMany();
       return {
         statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*', // Allow all origins
+          'Access-Control-Allow-Headers': 'Content-Type',
+        },
         body: JSON.stringify(hires),
       };
     }
 
     return {
       statusCode: 405,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
       body: JSON.stringify({ error: 'Method not allowed' }),
     };
   } catch (error) {
     return {
       statusCode: 500,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
       body: JSON.stringify({ error: 'Internal Server Error', details: error.message }),
     };
   }

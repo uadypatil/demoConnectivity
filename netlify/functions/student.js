@@ -7,6 +7,10 @@ export async function handler(event, context) {
     const students = await prisma.student.findMany();
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
       body: JSON.stringify(students),
     };
   }
@@ -16,12 +20,20 @@ export async function handler(event, context) {
     const newStudent = await prisma.student.create({ data });
     return {
       statusCode: 201,
+      headers: {
+        'Access-Control-Allow-Origin': '*', // Allow all origins
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
       body: JSON.stringify(newStudent),
     };
   }
 
   return {
     statusCode: 405,
+    headers: {
+      'Access-Control-Allow-Origin': '*', // Allow all origins
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
     body: JSON.stringify({ error: 'Method Not Allowed' }),
   };
 }
